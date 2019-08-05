@@ -11,11 +11,11 @@ namespace Zadacha1
         int[] array;
         int[] arraySMA;
         int[] newArray;
-        int n;
+        int N { get; set; }
         Random rand = new Random();
         public Calculation(int n)
         {
-            this.n = n;
+            this.N = n;
             array = new int[n];
         }
         public void Fill()
@@ -28,8 +28,8 @@ namespace Zadacha1
         }
         public void CalculateSMA(int p)
         {
-            arraySMA = new int[n - p + 1];
-            for (int j = 0; j <= (n - (p - 1)) && j < arraySMA.Length; j++)
+            arraySMA = new int[N - p + 1];
+            for (int j = 0; j <= (N - (p - 1)) && j < arraySMA.Length; j++)
             {
                 int sum = 0;
                 for (int i = j + p - 1; i >= j && i < array.Length; i--)
@@ -43,7 +43,7 @@ namespace Zadacha1
         }
         public void CalculateRatio()
         {
-            newArray = new int[n - 1];
+            newArray = new int[N - 1];
             for (int i = 0; i < newArray.Length; i++)
                 if (array[i] != 0)
                     newArray[i] = array[i + 1] / array[i];
