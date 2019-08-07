@@ -11,16 +11,37 @@ namespace Zadacha1
         static void Main(string[] args)
         {
             Console.WriteLine("Введите размер массива: ");
-            int n = Convert.ToInt32(Console.ReadLine());
-            if (n > 0 && n <= 100)
+            var arraySize = Convert.ToInt32(Console.ReadLine());
+            var c = new Calculation(arraySize);
+            int[] array = c.Fill();
+
+            Console.WriteLine("Исходный массив: ");
+            foreach (int a in array)
             {
-                Show sh = new Show(n);
-                sh.ShowCalculation();
+                Console.Write(a + "  ");
             }
-            else if (n > 100)
-                Console.WriteLine("Слишком большое значение!");
-            else
-                Console.WriteLine("Размер массива должен быть больше нуля!");
+            Console.WriteLine("\n" + new string('_', 50));
+
+            Console.WriteLine("Введите период скользящего среднего: ");
+            var period = Convert.ToInt32(Console.ReadLine());
+            if (period < 1 || period > arraySize)
+            {
+                throw new ArgumentException("Период скользящего среднего должен быть больше 1 и меньше размера массива!");
+            }
+            Console.WriteLine("Скользящее среднее: ");
+            int[] arrayMovingAverage = c.GetMovingAverage(period);
+            foreach (int a in arrayMovingAverage)
+            {
+                Console.Write(a + "  ");
+            }
+            Console.WriteLine("\n" + new string('_', 50));
+
+            Console.WriteLine("Отношение каждого следующего элемента к предыдущему: ");
+            int[] arrayRatio = c.GetRatio();
+            foreach (int a in arrayRatio)
+            {
+                Console.Write(a + "  ");
+            }
 
             Console.ReadKey();
         }

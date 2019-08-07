@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,49 +9,71 @@ namespace Zadacha1
 {
     class Calculation
     {
-        int[] array;
-        int[] arraySMA;
-        int[] newArray;
-        int N { get; set; }
-        Random rand = new Random();
-        public Calculation(int n)
+        private int[] _array;
+        private int[] _arrayMovingAverage;
+        private int[] _arrayRatio;
+
+        private int _ArraySize
         {
-            this.N = n;
-            array = new int[n];
-        }
-        public void Fill()
-        {
-            for (int i = 0; i < array.Length; i++)
+            get { return _ArraySize; }
+            set
             {
-                array[i] = rand.Next(0, 25);
-                Console.Write(array[i] + "  ");
+                if (value > 100)
+                {
+                    Console.WriteLine("Слишком большое значение!");
+                }
+                else if (value <= 0)
+                {
+                    Console.WriteLine("Размер массива должен быть больше нуля!");
+                }
+                else
+                {
+                    _ArraySize = value;
+                }
             }
         }
-        public void CalculateSMA(int p)
+
+        Random rand = new Random();
+        public Calculation(int arraySize)
         {
-            arraySMA = new int[N - p + 1];
-            for (int j = 0; j <= (N - (p - 1)) && j < arraySMA.Length; j++)
+            this._ArraySize = arraySize;
+            _array = new int[arraySize];
+        }
+        public int[] Fill()
+        {
+            for (int i = 0; i < _array.Length; i++)
+            {
+                _array[i] = rand.Next(0, 25);
+            }
+            return _array;
+        }
+        public int[] GetMovingAverage(int period)
+        {
+            _arrayMovingAverage = new int[_ArraySize - period + 1];
+            for (int j = 0; j <= (_ArraySize - (period - 1)) && j < _arrayMovingAverage.Length; j++)
             {
                 int sum = 0;
-                for (int i = j + p - 1; i >= j && i < array.Length; i--)
+                for (int i = j + period - 1; i >= j && i < _array.Length; i--)
                 {
-                    sum += array[i];
+                    sum += _array[i];
                 }
-                arraySMA[j] = sum / p;
+                _arrayMovingAverage[j] = sum / period;
             }
-            foreach (int a in arraySMA)
-                Console.Write(a + "  ");
+            return _arrayMovingAverage;
         }
-        public void CalculateRatio()
+        public int[] GetRatio()
         {
-            newArray = new int[N - 1];
-            for (int i = 0; i < newArray.Length; i++)
-                if (array[i] != 0)
-                    newArray[i] = array[i + 1] / array[i];
+            _arrayRatio = new int[_ArraySize - 1];
+            for (int i = 0; i < _arrayRatio.Length; i++)
+                if (_array[i] != 0)
+                {
+                    _arrayRatio[i] = _array[i + 1] / _array[i];
+                }
                 else
-                    newArray[i] = 0;  
-            foreach (int a in newArray)
-                Console.Write(a + "  ");
+                {
+                    _arrayRatio[i] = 0;
+                }
+            return _arrayRatio;
         }
     }
 }
