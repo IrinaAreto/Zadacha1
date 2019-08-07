@@ -12,6 +12,10 @@ namespace Zadacha1
         {
             Console.WriteLine("Введите размер массива: ");
             var arraySize = Convert.ToInt32(Console.ReadLine());
+            if (arraySize > 100 || arraySize <= 0)
+            {
+                Console.WriteLine("Размер массива должен быть больше нуля и меньше 100!");
+            }
             var c = new Calculation(arraySize);
             int[] array = c.Fill();
 
