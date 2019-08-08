@@ -12,15 +12,10 @@ namespace Zadacha1
         {
             Console.WriteLine("Введите размер массива: ");
             var arraySize = Convert.ToInt32(Console.ReadLine());
-            if (arraySize > 100 || arraySize <= 0)
-            {
-                Console.WriteLine("Размер массива должен быть больше нуля и меньше 100!");
-            }
             var c = new Calculation(arraySize);
             int[] array = c.Fill();
-
             Console.WriteLine("Исходный массив: ");
-            foreach (int a in array)
+            foreach (var a in array)
             {
                 Console.Write(a + "  ");
             }
@@ -34,7 +29,7 @@ namespace Zadacha1
             }
             Console.WriteLine("Скользящее среднее: ");
             int[] arrayMovingAverage = c.GetMovingAverage(period);
-            foreach (int a in arrayMovingAverage)
+            foreach (var a in arrayMovingAverage)
             {
                 Console.Write(a + "  ");
             }
@@ -42,7 +37,7 @@ namespace Zadacha1
 
             Console.WriteLine("Отношение каждого следующего элемента к предыдущему: ");
             int[] arrayRatio = c.GetRatio();
-            foreach (int a in arrayRatio)
+            foreach (var a in arrayRatio)
             {
                 Console.Write(a + "  ");
             }

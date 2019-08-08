@@ -12,14 +12,28 @@ namespace Zadacha1
         private int[] _array;
         private int[] _arrayMovingAverage;
         private int[] _arrayRatio;
-
-        private int ArraySize { get; set; }
+        private int _arraySize;
+        private int _ArraySize
+        {
+            get { return _arraySize; }
+            set
+            {
+                if (value > 100 || value <= 0)
+                {
+                    Console.WriteLine("Размер массива должен быть больше нуля и меньше 100!");
+                }
+                else
+                {
+                    _arraySize = value;
+                }
+            }
+        }
 
         Random rand = new Random();
         public Calculation(int arraySize)
         {
-            this.ArraySize = arraySize;
-            _array = new int[arraySize];
+            this._ArraySize = arraySize;
+            _array = new int[_ArraySize];
         }
         public int[] Fill()
         {
@@ -31,8 +45,8 @@ namespace Zadacha1
         }
         public int[] GetMovingAverage(int period)
         {
-            _arrayMovingAverage = new int[ArraySize - period + 1];
-            for (int j = 0; j <= (ArraySize - (period - 1)) && j < _arrayMovingAverage.Length; j++)
+            _arrayMovingAverage = new int[_ArraySize - period + 1];
+            for (int j = 0; j <= (_ArraySize - (period - 1)) && j < _arrayMovingAverage.Length; j++)
             {
                 int sum = 0;
                 for (int i = j + period - 1; i >= j && i < _array.Length; i--)
@@ -45,7 +59,7 @@ namespace Zadacha1
         }
         public int[] GetRatio()
         {
-            _arrayRatio = new int[ArraySize - 1];
+            _arrayRatio = new int[_ArraySize - 1];
             for (int i = 0; i < _arrayRatio.Length; i++)
                 if (_array[i] != 0)
                 {
